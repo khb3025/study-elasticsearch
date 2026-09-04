@@ -1,0 +1,64 @@
+DELETE /products
+
+PUT /products
+{
+    "mappings": {
+        "properties": {
+            "name":{
+                "type": "text",
+                "analyzer": "nori"
+            },
+            "category": { 
+                "type": "text",
+                "analyzer": "nori"
+            }
+        }
+    }
+}
+
+
+POST /products/_doc
+{
+  "name": "삼성 세탁기",
+  "category": "특수 가전제품"
+}
+
+GET /products/_search
+{
+    "query": {
+        "multi_match": {
+            "query":"가전",
+            "fields": ["name","category"]
+        }
+    }
+}
+
+GET /products/_search
+{
+    "query": {
+        "term": {
+          "category.add_type": "특수 가전제품"
+        }
+    }
+}
+
+PUT /products
+{
+    "mappings": {
+        "properties": {
+            "name":{
+                "type": "text",
+                "analyzer": "nori"
+            },
+            "category": { 
+                "type": "text",
+                "analyzer": "nori",
+                "fields": {
+                    "add_type":{
+                        "type": "keyword"
+                    }
+                }
+            }
+        }
+    }
+}

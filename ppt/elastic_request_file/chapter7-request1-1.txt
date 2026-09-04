@@ -1,0 +1,39 @@
+DELETE /boards
+PUT /boards
+{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "nori_analyzer" : {
+                    "char_filter" : ["html_strip"],
+                    "tokenizer": "nori_tokenizer",
+                    "filter": ["nori_part_of_speech","nori_readingform", "lowercase"]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "properties": {
+            "title" :{
+                "type": "text",
+                "analyzer": "nori_analyzer"
+            }
+        }
+    }
+}
+
+POST /boards/_doc
+{
+    "title" : "편의점 과자 내돈내산 후기"
+}
+
+GET /boards/_search
+{
+    "query": {
+        "match": {
+          "title": "편의점 후기"
+        }
+    }
+}
+
+DELETE /boards/_doc/RVo5a6ABjIjTZwKMnBGr

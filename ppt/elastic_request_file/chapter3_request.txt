@@ -1,0 +1,52 @@
+PUT /users
+GET /users
+DELETE /users
+PUT /users/_mappings
+{
+    "properties" : {
+        "name" : {"type" : "keyword"},
+        "age"  : {"type" : "integer"},
+        "is_active" : {"type" : "boolean" }
+    }
+}
+
+POST /users/_doc
+{
+    "name" : "Alice",
+    "age" : 28,
+    "is_active" : true
+}
+
+POST /users/_doc
+{
+    "name" : "Bob",
+    "age" : 30,
+    "is_active" : true
+}
+
+POST /users/_create/1
+{
+    "name" : "jscode",
+    "age" : 30,
+    "is_active" : true
+}
+
+PUT /users/_doc/2
+{
+    "name" : "jackson",
+    "age" : 30,
+    "is_active" : true
+}
+GET /users/_search
+
+GET /users/_doc/1
+
+POST /users/_update/1
+{
+    "doc":{
+        "age": 10,
+        "is_active":false
+    }
+}
+
+DELETE /users/_doc/1

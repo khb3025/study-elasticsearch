@@ -1,0 +1,144 @@
+DELETE /boards
+
+PUT /boards
+{
+    "mappings": {
+        "properties": {
+            "title":{
+                "type": "text",
+                "analyzer": "nori"
+            },
+            "likes": { "type": "long" }
+        }
+    }
+}
+
+
+POST /boards/_doc
+{
+  "title": "1번글",
+  "likes": 12
+}
+
+POST /boards/_doc
+{
+  "title": "2번글",
+  "likes": 35
+}
+
+POST /boards/_doc
+{
+  "title": "3번글",
+  "likes": 1
+}
+
+POST /boards/_doc
+{
+  "title": "4번글",
+  "likes": 11
+}
+
+POST /boards/_doc
+{
+  "title": "5번글",
+  "likes": 72
+}
+
+POST /boards/_doc
+{
+  "title": "6번글",
+  "likes": 10
+}
+
+POST /boards/_doc
+{
+  "title": "7번글",
+  "likes": 5
+}
+
+GET /boards/_search
+{
+    "query": {
+        "match": {
+          "title": "글"
+        }
+    },
+    "size": 3,
+    "from":0
+}
+
+GET /boards/_search
+{
+    "query": {
+        "match": {
+          "title": "글"
+        }
+    },
+    "size": 3,
+    "from":3
+}
+
+GET /boards/_search
+{
+    "query": {
+        "match": {
+          "title": "글"
+        }
+    },
+    "size": 3,
+    "from":6
+}
+## ## ## 
+GET /boards/_search
+{
+    "query": {
+        "match": {
+          "title": "글"
+        }
+    },
+    "size": 3,
+    "from":0,
+    "sort": [
+      {
+        "likes": {
+          "order": "desc"
+        }
+      }
+    ]
+}
+
+GET /boards/_search
+{
+    "query": {
+        "match": {
+          "title": "글"
+        }
+    },
+    "size": 3,
+    "from":3,
+    "sort": [
+      {
+        "likes": {
+          "order": "desc"
+        }
+      }
+    ]
+}
+
+GET /boards/_search
+{
+    "query": {
+        "match": {
+          "title": "글"
+        }
+    },
+    "size": 3,
+    "from":6,
+    "sort": [
+      {
+        "likes": {
+          "order": "desc"
+        }
+      }
+    ]
+}

@@ -1,0 +1,72 @@
+DELETE /boards
+PUT /boards
+{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "nori_analyzer" : {
+                    "char_filter" : ["html_strip"],
+                    "tokenizer": "nori_tokenizer",
+                    "filter": ["nori_part_of_speech","nori_readingform", "lowercase"]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "properties": {
+            "board_id" :{
+                "type": "long"
+            },
+            "category" : {
+                "type": "keyword"
+            }
+        }
+    }
+}
+GET /boards/_search
+
+POST /boards/_doc
+{
+    "board_id" : 3,
+    "category" : "광고 게시판"
+}
+
+GET /boards/_search
+{
+    "query": {
+        "term": {
+          "board_id": 3
+        }
+    }
+}
+
+GET /boards/_search
+{
+    "query": {
+        "terms": {
+          "category": ["자유 게시판","익명 게시판"]
+        }
+    }
+}
+
+GET /boards/_search
+{
+    "query": {
+        "bool": {
+            "must": [
+                {
+                    "term": {
+                        "category":"자유 게시판"
+                    }
+                },
+                {
+                    "term":{
+                        "board_id": 1
+                    }
+                }
+            ]
+        }
+    }
+}
+
+DELETE /boards/_doc/RVo5a6ABjIjTZwKMnBGr

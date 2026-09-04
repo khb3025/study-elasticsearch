@@ -1,0 +1,46 @@
+DELETE /boards
+PUT /boards
+{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "board_content_analyzer" :{
+                    "char_filter" : ["html_strip"],
+                    "tokenizer" : "standard",
+                    "filter" : [ "lowercase", "stop", "stemmer"]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "properties": {
+            "content" : {
+                "type" : "text",
+                "analyzer": "board_content_analyzer"
+                
+            }
+        }
+    }
+}
+
+GET /boards
+
+POST /baords/_doc
+{
+    "content" : "백화점에서 쇼핑을 하다가 친구를 만났다."
+}
+
+GET /boards/_search
+{
+    "query": {
+        "match": {
+          "content": "백화점에서"
+        }
+    }
+}
+
+GET /boards/_analyze
+{
+    "field" : "content",
+    "text" : "백화점에서 쇼핑을 하다가 친구를 만났다."
+}

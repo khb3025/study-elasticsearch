@@ -1,0 +1,68 @@
+PUT /product_reviews
+{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "nori_name_analyzer" : {
+                    "char_filter" : ["html_strip"],
+                    "tokenizer": "nori_tokenizer",
+                    "filter" : ["nori_readingform", "nori_part_of_speech", "lowercase"]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "properties": {
+            "review_id" : {
+                "type" : "long"
+            },
+            "user_id" : {
+                "type": "long"
+            },
+            "user_name" :{
+                "type" : "text"
+            },
+            "categories" : {
+                "type" : "keyword"
+            },
+            "rating" :{
+                "type": "double"
+            },
+            "is_verified_purchase" : {
+                "type" : "boolean"
+            },
+            "review_date" : {
+                "type" : "date"
+            },
+            "review_text" : {
+                "type" : "text"
+            }
+
+
+        }
+    }
+}
+
+GET /product_reviews
+
+POST /product_reviews/_doc
+{
+    "review_id" : 923874239847,
+    "user_id" : "1234",
+    "username" : "김영희",
+    "categories" : ["가전", "청소기"],
+    "rating" : 4.5,
+    "is_verified_purchase" : true,
+    "review_date" : "2024-09-21T14:32:00Z",
+    "review_text" : "배송이 빨랐고 제품도 만족스러워요."
+
+}
+
+GET /product_reviews/_search
+{
+    "query": {
+        "match": {
+          "user_id": "1234"
+        }
+    }
+}

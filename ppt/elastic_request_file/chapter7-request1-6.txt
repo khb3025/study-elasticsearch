@@ -1,0 +1,74 @@
+DELETE /users
+
+PUT /users
+{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "nori_analyzer" : {
+                    "char_filter":["html_strip"],
+                    "tokenizer":"nori_tokenizer",
+                    "filter":["nori_part_of_speech", "nori_readingform", "lowercase"]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "properties": {
+             "name": {
+                "type": "keyword"
+            },
+            "age": {
+                "type": "integer"
+            },
+            "created_at": {
+                "type": "date"
+            }
+        }
+    }
+}
+
+POST /users/_doc
+{
+  "name": "kim_jisoo",
+  "age": 28,
+  "created_at": "2024-09-01"
+}
+POST /users/_doc
+{
+  "name": "lee_joon",
+  "age" : 35,
+  "created_at": "2024-12-15"
+}
+POST /users/_doc
+{
+    "name": "park_saejin",
+    "age" : 32,
+    "created_at": "2025-03-25"
+}
+
+// 나이가 30살 이상
+// 회원가입 날짜가 2025년 1월 1일 이후인 사용자 조회
+GET /users/_search
+{
+    "query": {
+        "bool": {
+            "filter": [
+              {
+                "range": {
+                  "age": {
+                    "gte": 30
+                  }
+                }
+              },
+              {
+                "range": {
+                  "created_at": {
+                    "gte": "2025-01-01"
+                  }
+                }
+              }
+            ]
+        }
+    }
+}

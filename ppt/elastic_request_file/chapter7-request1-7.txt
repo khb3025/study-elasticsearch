@@ -1,0 +1,94 @@
+DELETE /products
+PUT /products
+{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "nori_analyzer" : {
+                    "char_filter":["html_strip"],
+                    "tokenizer":"nori_tokenizer",
+                    "filter":["nori_part_of_speech", "nori_readingform", "lowercase"]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "properties": {
+             "name": {
+                "type": "text",
+                "analyzer": "nori_analyzer"
+            },
+            "rating": {
+                "type": "double"
+            },
+            "likes": {
+                "type": "integer"
+            }
+        }
+    }
+}
+
+POST /products/_doc
+{
+  "name": "무선 충전기 C타입",
+  "rating": 4.9,
+  "likes": 300
+}
+
+POST /products/_doc
+{
+  "name": "소니 무선 이어폰WF",
+  "rating": 3.8,
+  "likes": 15
+}
+
+POST /products/_doc
+{
+  "name": "갤럭시 버즈2 무선 이어폰",
+  "rating": 4.8,
+  "likes": 310
+}
+
+POST /products/_doc
+{
+  "name": "삼성 노트북 13인치",
+  "rating": 5.0,
+  "likes":1000
+}
+
+GET /products/_search
+// 사용자가 특정 키워드 (예: "무선 이어폰")으로 검색했을때,
+// 키워드와 관련된 데이터 조회
+// 평점이 높거나 
+// 좋아요 수가 많은 상품 상단 노출
+GET /products/_search
+{
+    "query": {
+        
+        "bool": {
+            "must": [
+                { 
+                    "match": {
+                    "name": "무선 이어폰"
+                    }
+                }
+            ],
+            "should": [
+                {
+                    "range": {
+                        "rating" : {
+                            "gte": 4.5
+                        }
+                    }
+                },
+                {
+                    "range": {
+                        "likes": {
+                            "gte": 100
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

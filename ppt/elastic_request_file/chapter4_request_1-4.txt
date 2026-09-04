@@ -1,0 +1,48 @@
+put /products
+
+put /products/_mapping
+{
+    "properties" :{
+        "name" : {
+            "type" : "text"
+        }  
+    }
+}
+DELETE /products
+
+put /products
+{
+    "mappings" :{
+        "properties" :{
+            "name" : {
+                "type" : "text"
+            }  
+        }
+    }
+}
+
+get /products
+
+post /products/_create/1
+{
+    "name" : "Apple 2025 맥북 에어 13 M4 10코어"
+}
+
+post /products/_create/2
+{
+    "name" : "Apple 2025 맥북 에어팟 4세대"
+}
+
+post /products/_create/3
+{
+    "name" : "Apple 2024 아이패드 mini A17 Pro"
+}
+
+get /products/_search
+{
+    "query" :{
+        "match" :{
+            "name" : "2024 Apple 아이패드 "
+        }
+    }
+}

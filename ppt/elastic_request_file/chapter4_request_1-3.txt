@@ -1,0 +1,27 @@
+PUT /products
+
+PUT /products/_mapping
+{
+    "properties" : {
+        "name" : { "type" : "text"}
+
+    }
+}
+
+POST /products/_doc
+{
+    "name" : "Apple 2025 맥북 에어 13 M4 10 코어"
+}
+
+GET /products/_search
+
+GET /products/_search
+{
+    "query" : {
+        "match" :{
+            "name" : "맥북 13 에어 코어 M4"
+        }
+    }
+}
+
+DELETE /products
