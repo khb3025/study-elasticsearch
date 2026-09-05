@@ -8,3 +8,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  elasticsearch:
+    uris: http://localhost:9200
+
+logging:
+  level:
+    org.elasticsearch.client: TRACE
+    co.elastic.clients: TRACE
+    org.apache.hc.client5.http.wire: TRACE
+    org.apache.hc.client5.http.headers: TRACE
