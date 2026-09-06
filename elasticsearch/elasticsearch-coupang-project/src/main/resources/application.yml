@@ -9,8 +9,9 @@ spring:
       ddl-auto: update
     show-sql: true
   elasticsearch:
-    uris: http://localhost:9200
-
+    uris: http://localhost:9200 # https://3c25a4c9f14941bd96693d80898/c9d7.8p-h0rth0ast-2.aws.elastic-cloud.com:443 
+    # username : elastic
+    # password : KSYhmz330plZcvbnkWGAEEPR
 logging:
   level:
     org.elasticsearch.client: TRACE
