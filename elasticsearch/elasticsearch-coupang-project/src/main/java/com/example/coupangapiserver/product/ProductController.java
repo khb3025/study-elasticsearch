@@ -36,6 +36,17 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
+    @GetMapping("/suggestions")
+    public ResponseEntity<List<String>> getSuggestions(@RequestParam(name = "query") String query) {
+        List<String> suggestions = productService.getSuggestions(query);
+        return ResponseEntity.ok(suggestions);
+    }
+
+    public String getMethodName(@RequestParam(name = "param") String param) {
+        return new String();
+    }
+    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);

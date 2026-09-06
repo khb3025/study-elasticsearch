@@ -1,4 +1,4 @@
-package com.example.coupangapiserver;
+package com.example.coupangapiserver.product.domain;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -43,6 +43,10 @@ public class ProductDocument {
         }
     )
     private String category;
+
+    // Spring Data Elasticsearch가 검색 결과를 매핑할 때 사용하는 기본 생성자
+    public ProductDocument() {
+    }
 
     public ProductDocument(String id, String name, String description, Integer price, double rating, String category) {
         this.id = id;

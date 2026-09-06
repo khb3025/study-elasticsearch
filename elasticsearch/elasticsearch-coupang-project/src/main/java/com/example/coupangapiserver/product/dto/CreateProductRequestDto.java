@@ -7,6 +7,10 @@ public class CreateProductRequestDto {
     private double rating;
     private String category;
 
+    // Jackson 역직렬화를 위한 기본 생성자
+    public CreateProductRequestDto() {
+    }
+
     public CreateProductRequestDto(String name, String description, int price, double rating, String category) {
         this.name = name;
         this.description = description;
