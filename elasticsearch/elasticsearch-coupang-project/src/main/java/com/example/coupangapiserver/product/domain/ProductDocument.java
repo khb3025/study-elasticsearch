@@ -38,8 +38,8 @@ public class ProductDocument {
         mainField = @Field( type = FieldType.Text,
                         analyzer = "product_category_analyzer"),
         otherFields = {
-                    @InnerField(suffix = "keyword",
-                    type = FieldType.Keyword)
+                    @InnerField(suffix = "row",
+                                type = FieldType.Keyword)
         }
     )
     private String category;
